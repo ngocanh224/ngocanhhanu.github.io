@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "cc",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 105.50046670902266, 22.027313789939981 ], [ 106.316380247993607, 22.007071660156353 ], [ 106.224512120514063, 21.27679790103922 ], [ 105.542508055496356, 21.325067595138645 ], [ 105.50046670902266, 22.027313789939981 ] ] ] ] } }
+]
+}
