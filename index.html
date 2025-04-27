@@ -17,36 +17,32 @@
   <h2 style="text-align:center; font-family:sans-serif;">Bản đồ WebGIS tỉnh Thái Nguyên</h2>
   <div id="map" style="width: 100%; height: 90vh;"></div>
   <script>
-    // Khởi tạo bản đồ
     var map = L.map('map').setView([21.5881, 105.8471], 12);
 
     // Lớp nền
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     });
-
     var googleRoadmap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
       attribution: '&copy; Google Maps'
     });
-
     var googleHybrid = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
       attribution: '&copy; Google Maps'
     });
-
     var topoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenTopoMap'
+      attribution: 'Map data: &copy; OpenTopoMap'
     });
 
-    googleRoadmap.addTo(map); // lớp nền mặc định
+    googleRoadmap.addTo(map);
 
-    // Tìm kiếm địa điểm
+    // Công cụ tìm kiếm địa điểm
     L.Control.geocoder({ defaultMarkGeocode: true }).addTo(map);
 
-    // Marker TP. Thái Nguyên
+    // Marker Thái Nguyên
     var marker = L.marker([21.5881, 105.8471]).addTo(map);
     marker.bindPopup("<b>Thành phố Thái Nguyên</b>").openPopup();
 
-    // Lớp dữ liệu GeoJSON
+    // Lớp GeoJSON
     var vnLayer = L.geoJSON(null, {
       style: {
         color: "#0044cc",
@@ -63,6 +59,14 @@
       }
     });
 
+    var ccLayer = L.geoJSON(null, {
+      style: {
+        color: "#00aa00",
+        weight: 2,
+        fillOpacity: 0.6
+      }
+    });
+
     fetch('VN.geojson')
       .then(res => res.json())
       .then(data => vnLayer.addData(data));
@@ -71,7 +75,7 @@
       .then(res => res.json())
       .then(data => tnLayer.addData(data));
 
-     fetch('cc.geojson')
+    fetch('cc.geojson')
       .then(res => res.json())
       .then(data => ccLayer.addData(data));
 
@@ -79,7 +83,7 @@
     tnLayer.addTo(map);
     ccLayer.addTo(map);
 
-    // Điều khiển lớp
+    // Điều khiển lớp nền và lớp dữ liệu
     var baseMaps = {
       "Google Map": googleRoadmap,
       "Google Hybrid": googleHybrid,
@@ -87,7 +91,7 @@
       "Topo Map": topoMap
     };
 
-  var overlayMaps = {
+    var overlayMaps = {
       "Việt Nam (VN.geojson)": vnLayer,
       "Thái Nguyên (TN.geojson)": tnLayer,
       "Công trình (cc.geojson)": ccLayer
