@@ -71,8 +71,13 @@
       .then(res => res.json())
       .then(data => tnLayer.addData(data));
 
+     fetch('cc.geojson')
+      .then(res => res.json())
+      .then(data => ccLayer.addData(data));
+
     vnLayer.addTo(map);
     tnLayer.addTo(map);
+    ccLayer.addTo(map);
 
     // Điều khiển lớp
     var baseMaps = {
@@ -82,9 +87,10 @@
       "Topo Map": topoMap
     };
 
-    var overlayMaps = {
+  var overlayMaps = {
       "Việt Nam (VN.geojson)": vnLayer,
-      "Thái Nguyên (TN.geojson)": tnLayer
+      "Thái Nguyên (TN.geojson)": tnLayer,
+      "Công trình (cc.geojson)": ccLayer
     };
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);
